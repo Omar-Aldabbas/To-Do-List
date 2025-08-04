@@ -1,21 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
-    <link rel="stylesheet" href="styles.css"
-    
-</head>
-<body>
-    <div class="todo-container">
-        <h2>To-Do List</h2>
-        <div class="input-container">
-            <input type="text" id="taskInput" placeholder="Add a new task...">
-            <button onclick="addTasks()">Add</button>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header__head">
+        <div class="header__head-text">
+          <h1>Welcome to Notes</h1>
+          <p>Have a great Day</p>
         </div>
-        <ul id="taskList"></ul>
-    </div>
+        <div class="image-container">
+          <img src="./assets/images/illu.png" alt="USEIMG" />
+          <img src="./assets/images/illu2.jpg" alt="USEIMG" />
+          <img src="./assets/images/illu3.png" alt="USEIMG" />
+        </div>
+      </div>
+    </header>
+    <section class="section1 addTask">
+      <div class="header__addtask-layout">
+        <button id="addTaskBtn">Add A new Task</button>
+        <div id="formContainer"></div>
+      </div>
+    </section>
+    <section class="section2 priority">
+      <h2>My Priority Task</h2>
+      <div id="priorityContainer"> No priority tasks yet<!-- TODO:insert here use js --></div>
+    </section>
+    <section class="section3 relax">
+      <div class="banner">
+        <img src="./assets/images/Illustration (1).png" alt="CHECKLIST" />
+        <p>Without much worry just manage things as easy as piece of cake</p>
+      </div>
+    </section>
+    <section class="section4 tasks-by-time">
+      <div class="tasks" >
+        <p>Today's Tasks</p>
+        <div id="todayTasks">No tasks today yet</div>
+      </div>
+      <div class="tasks" >
+        <p>Week Tasks</p>
+        <div id="weekTask">No tasks this week yet</div>
+      </div>
+      <div class="tasks" >
+        <p>Month Tasks</p>
+        <div id="monthTask">No tasks this month yet</div>
+      </div>
+    </section>
+    <section class="section5 alltasks">
+      <div class="alltasks__head">
+        <h2>All Tasks</h2>
+        <select id="taskFilter">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+      </div>
+      <div id="filteredTasksContainer"></div>
+    </section>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
