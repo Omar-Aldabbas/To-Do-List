@@ -21,6 +21,7 @@ body {
   font-family: "Segoe UI", sans-serif;
   background-color: var(--bg-mainColor);
   color: var(--text-dark);
+  padding: 2px 2rem;
 }
 
 header {
@@ -114,7 +115,7 @@ header {
 
 .banner {
   position: relative;
-  overflow: visible; 
+  overflow: visible;
 }
 
 .banner::before {
@@ -130,8 +131,6 @@ header {
   z-index: -1;
   pointer-events: none;
 }
-
-
 
 .tasks-by-time {
   display: flex;
@@ -175,7 +174,6 @@ header {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-
 }
 
 .task-body.active {
@@ -222,6 +220,206 @@ header {
 
 /* TO HELP JS RENDERING  */
 
-.priorityContainer {
-    overflow: hidden;
+#priorityContainer,
+#filteredTasksContainer {
+  display: grid;
+  overflow-x: auto;
+  overflow-y: hidden;
+  grid-auto-flow: column;
+  grid-auto-columns: 250px;
+  gap: 10px;
+  /* background-color: pink; */
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem;
+}
+
+.priorityTask {
+  /* display: inline-block; */
+  background-color: var(--priority-mid);
+  height: clamp(13rem, 40vh, 25rem);
+  width: clamp(13rem, 23vw, 20rem);
+  padding: 1rem 1.3rem;
+  /* margin: 1rem; */
+}
+
+.priorityTask:hover {
+  border: 3px solid blue;
+}
+
+.priorityTask__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.priorityTask__btnContainer button {
+  width: clamp(1.5rem, 4vw, 2rem);
+  background-color: transparent;
+  /* border: none; */
+}
+
+.red,
+.blue,
+.green {
+  border-radius: 10px;
+  color: var(--btn-addtask);
+  padding: 4px;
+  display: inline-block;
+  min-width: 4rem;
+  text-align: center;
+  margin: 4px auto;
+}
+
+.red {
+  background-color: var(--priority-high);
+}
+.blue {
+  background-color: var(--task-todo);
+}
+.green {
+  background-color: var(--priority-low);
+}
+
+.task-titles {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.task-titles p.active {
+  background-color: var(--task-todo);
+  color: var(--btn-addtask);
+  font-weight: bold;
+}
+
+.task-content .task-body {
+  display: none;
+  padding: 1rem;
+  border: 2px solid var(--text-dark);
+  min-height: 100px;
+  background-color: var(--task-todo);
+  color: var(--btn-addtask);
+  box-shadow: 3px 8px 2px rgba(0, 0, 0, 0.8);
+}
+
+.task-body p {
+  border: 1px dashed var(--priority-mid);
+  margin-bottom: 4px;
+  padding: 4px 6px;
+}
+
+.task-content .task-body.active {
+  display: block;
+}
+
+/* form  */
+
+form {
+  padding: 1rem;
+  color: var(--text-dark);
+  font-family: "Segoe UI", sans-serif;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  /* display: block; */
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 1rem;
+  border: 1.5px solid var(--task-todo);
+  border-radius: 5px;
+  font-size: 1rem;
+  /* font-family: inherit; */
+  background: transparent;
+  color: var(--text-dark);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+fieldset {
+  border: none;
+  margin-bottom: 1rem;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-group input[type="radio"] {
+  display: none;
+}
+
+.radio-group label {
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  border: 1px solid var(--text-dark);
+  border-radius: 9px;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  min-width: 60px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.radio-group input[type="radio"]:checked + label {
+  box-shadow: 0 6px 0px var(--text-dark);
+}
+
+.red-bg {
+  background-color: var(--priority-high);
+}
+
+.blue-bg {
+  background-color: var(--task-todo);
+}
+
+.green-bg {
+  background-color: var(--priority-low);
+}
+
+.form__btnContainer {
+  display: flex;
+  padding: 1rem;
+  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border: 3px dashed var(--task-todo);
+}
+
+.form__btnContainer button {
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  border: 2px solid var(--task-todo);
+  border-bottom: none;
+  border-left: none;
+  transition: all 0.3s ease;
+}
+
+.form__btnContainer button:hover {
+  transform:rotateZ(6deg);
 }
