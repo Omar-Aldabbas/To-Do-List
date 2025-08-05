@@ -2,9 +2,28 @@
 
 const showFormBtn = document.querySelector("#addTaskBtn");
 const formContainer = document.querySelector("#formContainer");
+const priorityContainer = document.querySelector("#priorityContainer");
 
-const tasks = []
+let tasks = [
+  {
+    title: "Task A",
+    priority: "high",
+    repeat: "day",
+    description: "Very important task",
+  },
+  {
+    title: "Task B",
+    priority: "medium",
+    repeat: "week",
+    description: "Less important task",
+  },
+];
 
+// Load saved tasks
+const savedTasks = localStorage.getItem("tasks");
+if (savedTasks) {
+  tasks = JSON.parse(savedTasks);
+}
 
 function generateForm() {
   return `<form>
@@ -39,7 +58,7 @@ function generateForm() {
                 <label for="low">Low</label>
 
                 <input type='radio' name="priority" value="medium" id="medium" />
-                <label for="medium">medium</label>
+                <label for="medium">Medium</label>
 
                 <input type='radio' name="priority" value="high" id="high" />
                 <label for="high">High</label>
@@ -51,55 +70,111 @@ function generateForm() {
         </form>`;
 }
 
-showFormBtn.addEventListener("click", (e) => {
-//   formContainer.innerHTML = "";
+showFormBtn.addEventListener("click", () => {
   formContainer.innerHTML = generateForm();
   showFormBtn.disabled = true;
 
   formContainer.querySelector("#closeFormBtn").addEventListener("click", () => {
     formContainer.innerHTML = "";
-    showFormBtn.disabled = flase;
+    showFormBtn.disabled = false;
     document.removeEventListener("keydown", escListener);
   });
 
-  function escListener(e) {
-    if (e.key == "Escape") {
-      formContainer.innerHTML = "";
-      showFormBtn.disabled = flase;
-
-      document.removeEventListener("keydown", escListener);
-    }
-  }
-
-  document.addEventListener("keydown", escListener);
-});
-
-formContainer.querySelector('#submitFormBtn').addEventListener('click', (e)=> {
+  formContainer.querySelector("form").addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const form = new FormData(form);
+    const formElement = formContainer.querySelector("form");
+    const formData = new FormData(formElement);
 
-    const date = form.get('date');
-    const repeat = form.get('repeat');
-    const title = form.get('title');
-    const description = form.get('description');
-    const priority = form.get('priority');
+    const date = formData.get("date");
+    const repeat = formData.get("repeat");
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const priority = formData.get("priority");
 
     const createdAt = new Date();
     const completed = false;
 
     const newTask = {
-        date, repeat, title, description, priority, createdAt, completed
-    }
+      date,
+      repeat,
+      title,
+      description,
+      priority,
+      createdAt,
+      completed,
+    };
 
     tasks.push(newTask);
-    localStorage.setItem('tasks', JSON.stringify(tasks))
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 
-    formContainer.innerHTML ='';
+    formContainer.innerHTML = "";
     showFormBtn.disabled = false;
+
+    insertPriority(); 
+  });
+
+  function escListener(e) {
+    if (e.key === "Escape") {
+      formContainer.innerHTML = "";
+      showFormBtn.disabled = false;
+      document.removeEventListener("keydown", escListener);
+    }
+  }
+  document.addEventListener("keydown", escListener);
 });
 
-const savedTasks = localStorage.getItem('tasks');
-if (savedTasks) {
-  tasks = JSON.parse(savedTasks);
+function randEmoji() {
+  const emoji = [
+    "🙄",
+    "😎",
+    "😝",
+    "🙃",
+    "😰",
+    "🥳",
+    "🦝",
+    "🐵",
+    "😬",
+    "👁",
+    "🧠",
+    "🦋",
+    "💃",
+    "🏋️‍♀️",
+  ];
+
+  const random = Math.floor(Math.random() * emoji.length);
+
+  return emoji[random];
 }
+
+const priorityTask = (task) => {
+  return `
+    <div class="priorityTask">
+        <div class="priorityTask__head">
+        <p>${task.repeat}</p>
+        <span>${randEmoji()}</span>
+        </div>
+        <h3>${task.title}</h3>
+        <details open>
+        <summary>${
+          (task.description && task.description.slice(0, 14) + "...") || "NO DESCRIPTION"
+        }</summary>
+        <p>${task.description || ""}</p>
+        </details>
+    </div>`;
+};
+
+function insertPriority() {
+  priorityContainer.innerHTML = "";
+  const priorityOrder = { high: 1, medium: 2, low: 3 };
+  const sorted = [...tasks].sort(
+    (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+  );
+
+  sorted.forEach((el) => {
+    const taskHTML = priorityTask(el);
+    priorityContainer.insertAdjacentHTML("beforeend", taskHTML);
+  });
+}
+
+insertPriority();

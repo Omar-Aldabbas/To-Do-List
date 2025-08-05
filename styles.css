@@ -219,3 +219,9 @@ header {
   color: var(--task-todo);
   font-size: 1rem;
 }
+
+/* TO HELP JS RENDERING  */
+
+.priorityContainer {
+    overflow: hidden;
+}
