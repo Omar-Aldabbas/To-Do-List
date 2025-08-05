@@ -112,14 +112,76 @@ header {
   max-height: 240px;
 }
 
+.banner {
+  position: relative;
+  overflow: visible; 
+}
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 40%;
+  width: clamp(3rem, 20vw, 18rem);
+  height: clamp(3rem, 20vw, 18rem);
+  background: radial-gradient(circle, var(--task-todo));
+  border-radius: 50%;
+  animation: pulse 2s infinite ease-in-out;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+
 .tasks-by-time {
   display: flex;
-  /* align-items: center; */
-  justify-content: space-around;
+  flex-direction: column;
   padding: 1rem 2rem;
   margin: 0.5rem auto 1rem auto;
-    align-items: stretch;
   position: relative;
+  max-width: 600px;
+}
+
+.task-titles {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.task-titles p {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  border-top: 2px solid var(--task-todo);
+  border-right: 2px solid var(--task-todo);
+}
+
+.task-titles p.active {
+  background-color: #ccc;
+}
+
+.task-content {
+  position: relative;
+  min-height: 200px;
+}
+
+.task-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+}
+
+.task-body.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
 }
 
 .alltasks {
@@ -136,16 +198,16 @@ header {
 }
 
 .alltasks__head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #taskFilter {
   padding: 0.5rem 1rem;
   border-radius: 8px;
-    border: 3px solid var(--text-dark);
+  border: 3px solid var(--text-dark);
   background-color: var(--add-task);
   color: var(--text-dark);
   font-size: 1rem;

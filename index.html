@@ -20,36 +20,43 @@
         </div>
       </div>
     </header>
+
     <section class="section1 addTask">
       <div class="header__addtask-layout">
         <button id="addTaskBtn">Add A new Task</button>
         <div id="formContainer"></div>
       </div>
     </section>
+
     <section class="section2 priority">
       <h2>My Priority Task</h2>
-      <div id="priorityContainer"> No priority tasks yet<!-- TODO:insert here use js --></div>
+      <div id="priorityContainer">
+        No priority tasks yet<!-- TODO:insert here use js -->
+      </div>
     </section>
+
     <section class="section3 relax">
       <div class="banner">
+        
         <img src="./assets/images/Illustration (1).png" alt="CHECKLIST" />
         <p>Without much worry just manage things as easy as piece of cake</p>
       </div>
     </section>
+
     <section class="section4 tasks-by-time">
-      <div class="tasks" >
-        <p>Today's Tasks</p>
-        <div id="todayTasks">No tasks today yet</div>
+      <div class="task-titles">
+        <p data-target="todayTasks">Today's Tasks</p>
+        <p data-target="weekTask">Week Tasks</p>
+        <p data-target="monthTask">Month Tasks</p>
       </div>
-      <div class="tasks" >
-        <p>Week Tasks</p>
-        <div id="weekTask">No tasks this week yet</div>
-      </div>
-      <div class="tasks" >
-        <p>Month Tasks</p>
-        <div id="monthTask">No tasks this month yet</div>
+
+      <div class="task-content">
+        <div id="todayTasks" class="task-body active">No tasks today yet</div>
+        <div id="weekTask" class="task-body">No tasks this week yet</div>
+        <div id="monthTask" class="task-body">No tasks this month yet</div>
       </div>
     </section>
+
     <section class="section5 alltasks">
       <div class="alltasks__head">
         <h2>All Tasks</h2>
@@ -61,6 +68,7 @@
       </div>
       <div id="filteredTasksContainer"></div>
     </section>
+
     <script src="script.js"></script>
   </body>
 </html>
